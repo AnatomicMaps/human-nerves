@@ -10,6 +10,6 @@ Instructions:
    e.g. `pyenv activate human-nerves-env`
 3. Install required libraries
    e.g. `pip install -r requirements.txt`
-4. Dont forget to export SCICRUNCH_API_KEY password
+4. Don't forget to export SCICRUNCH_API_KEY password
    e.g. `export SCICRUNCH_API_KEY=XXXXX`
 5. All god now, run `jupyter notebook` from terminal and then open `reroute.ipynb`.
