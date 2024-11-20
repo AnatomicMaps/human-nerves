@@ -278,9 +278,6 @@ class Nerves:
                 point = (max(nerve['points'].keys()), nerve['points'][max(nerve['points'].keys())]['group'])
             else:
                 point = (-1, '')
-                print('1.', nerve)
-                print('2.', non_nerve)
-                print('3.', is_nerve)
             points = [{
                 'id': nerve['id'],
                 'label': nerve['label'],
@@ -434,4 +431,3 @@ def draw_waypoints(rerouting, g):
         g_3d.nodes[n]['axon'] = []
         g_3d.nodes[n]['both-a-d'] = []
     display_connectivity_graph(g_3d)
-    
