@@ -13,3 +13,15 @@ Instructions:
 4. Don't forget to export SCICRUNCH_API_KEY password
    e.g. `export SCICRUNCH_API_KEY=XXXXX`
 5. All god now, run `jupyter notebook` from terminal and then open `reroute.ipynb`.
+
+Checking current coverage:
+
+```
+python nerve-testing.py sckan-2024-09-21 nerve_point_annotations.json M2.6_3D_whole-body.csv
+```
+
+params:
+
+- sckan-version
+- nerve point annotation (manInBox) file
+- nerve pathway file
