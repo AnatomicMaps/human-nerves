@@ -4,6 +4,7 @@ import pandas as pd
 import networkx as nx
 import itertools
 from connectivity_graph import display_connectivity_graph, display_connectivity_for_entity
+from mapknowledge import KnowledgeStore
 
 import logging as log
 import requests
@@ -295,9 +296,10 @@ class Nerves:
 #===============================================================================
 
 class Rerouting:
-    def __init__(self, path_hierarchy, path_maninbox):
+    def __init__(self, path_hierarchy, path_maninbox, store:KnowledgeStore):
         self.__nerve_pathways = NervePathways(path_hierarchy)
         self.__nerve_maninbox = Nerves(path_maninbox)
+        self.__store = store
 
     def check_laterality(self, G):
         lateral_map = {}
@@ -323,9 +325,9 @@ class Rerouting:
                 G.add_edge(new_node, neighbor)
             G.remove_node(old_node)
 
-    def reroute_for_3d_map(self, store, entity):
+    def reroute_for_3d_map(self, entity):
         import copy
-        entity_knowledge = copy.deepcopy(store.entity_knowledge(entity))
+        entity_knowledge = copy.deepcopy(self.__store.entity_knowledge(entity))
         
         G = nx.Graph()
         G.add_edges_from(entity_knowledge['connectivity'])
@@ -336,7 +338,7 @@ class Rerouting:
             for u, v in G.edges():
                 # Add to right path
                 self.add_lateralised_edge(G_reconstructed, u, v, lateral_map)
-        
+
         # update G_reconstructed based on origin
         retained_nodes = []
         availabel_origs_dests = []
@@ -370,8 +372,8 @@ class Rerouting:
         entity_knowledge['axons'] = [a for a in entity_knowledge['axons'] if a in list(G_reconstructed.nodes)]
         return entity_knowledge
     
-    def get_3d_pathways_graph(self, store, entity):
-        G =  store.connectivity_from_knowledge(knowledge=self.reroute_for_3d_map(store, entity))
+    def get_3d_pathways_graph(self, entity):
+        G =  self.__store.connectivity_from_knowledge(knowledge=self.reroute_for_3d_map(entity))
         return G
 
     @property
@@ -417,7 +419,7 @@ def draw_entity(store, rerouting, entity):
     print('SCKAN:')
     display_connectivity_for_entity(store, entity)
     print('Reroute for 3D Map:')
-    knowledge=rerouting.reroute_for_3d_map(store, entity)
+    knowledge=rerouting.reroute_for_3d_map(entity)
     graph = store.connectivity_from_knowledge(knowledge)
     display_connectivity_graph(graph)
     return graph
