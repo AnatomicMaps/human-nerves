@@ -347,6 +347,7 @@ class Rerouting:
                 for n in nodes:
                     availabel_origs_dests += self.__nerve_pathways.get_origins(n)
                     availabel_origs_dests += self.__nerve_pathways.get_destinations(n)
+                    availabel_origs_dests += self.__nerve_pathways.get_landmarks(n)
                     retained_nodes += [(n, ())]
         
         # remove nodes not in origins, destinations and retained_nodes
