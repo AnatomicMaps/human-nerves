@@ -364,13 +364,18 @@ class Rerouting:
                             continue
                         G_reconstructed.add_edge(neighbor1, neighbor2)
                     G_reconstructed.remove_node(node)
-            elif len(selected_layer:=set([node[0]] + list(node[1])) & set(availabel_origs_dests)) < len(set([node[0]] + list(node[1])) ) and len(selected_layer) > 0:
+            elif len(selected_layer:=set([node[0]] + list(node[1])) & set(availabel_origs_dests)) < len(set([node[0]] + list(node[1]))) and len(selected_layer) > 0:
                 self.replace_node(G_reconstructed, node, (list(selected_layer)[0], ()))
             
 
         entity_knowledge['connectivity'] = list(G_reconstructed.edges())    
         entity_knowledge['dendrites'] = [d for d in entity_knowledge['dendrites'] if d in list(G_reconstructed.nodes)]
         entity_knowledge['axons'] = [a for a in entity_knowledge['axons'] if a in list(G_reconstructed.nodes)]
+
+        covered_nodes = set(G.nodes) & set(list(lateral_map.keys()) + list(G_reconstructed.nodes))
+        entity_knowledge['covered_nodes'] = list(covered_nodes)
+        entity_knowledge['covered_edges'] = list(edge for edge in itertools.combinations(covered_nodes, 2) if edge in G.edges)
+
         return entity_knowledge
     
     def get_3d_pathways_graph(self, entity):
