@@ -111,7 +111,7 @@ def parse_nerve_point_file(filename, pathways_dataframe):
 
                 node = {
                     'id': nodeIdentifier,
-                    'name': currentMarkerName,
+                    'name': currentMarkerName.strip(),
                     'coords': xyz
                 }
                 all_nodes.append(node)
@@ -168,7 +168,7 @@ def parse_nerve_point_file(filename, pathways_dataframe):
                 #meshGroup.addElement(element)
                 edge = {
                     'id': elementIdentifier,
-                    'name': marker_group,
+                    'name': marker_group.strip(),
                     'nodes': nIds,
                 }
                 all_edges.append(edge)
@@ -184,7 +184,7 @@ def parse_nerve_point_file(filename, pathways_dataframe):
                 #meshGroup.addElement(element)
                 edge = {
                     'id': elementIdentifier,
-                    'name': marker_group,
+                    'name': marker_group.strip(),
                     'nodes': nIds,
                 }
                 all_edges.append(edge)
@@ -203,7 +203,7 @@ def parse_nerve_point_file(filename, pathways_dataframe):
                     #meshGroup.addElement(element)
                     edge = {
                         'id': elementIdentifier,
-                        'name': marker_group,
+                        'name': marker_group.strip(),
                         'nodes': nIds,
                     }
                     all_edges.append(edge)
@@ -219,7 +219,7 @@ def parse_nerve_point_file(filename, pathways_dataframe):
                 #meshGroup.addElement(element)
                 edge = {
                     'id': elementIdentifier,
-                    'name': marker_group,
+                    'name': marker_group.strip(),
                     'nodes': nIds,
                 }
                 all_edges.append(edge)
@@ -235,7 +235,7 @@ def parse_nerve_point_file(filename, pathways_dataframe):
                     #meshGroup.addElement(element)
                     edge = {
                         'id': elementIdentifier,
-                        'name': marker_group,
+                        'name': marker_group.strip(),
                         'nodes': nIds,
                     }
                     all_edges.append(edge)
